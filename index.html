@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>動画好きのための爆速レンズ比較</title>
+    <title>レンズ沼 - 動画好きのための爆速レンズ比較・価格検索ツール</title>
+    
+    <meta name="description" content="SONY Eマウント、Lマウント、EFマウントのレンズ価格・中古相場・作例を一瞬で比較。マップカメラ、キタムラ、メルカリ、フォトヨドバシを同時検索する動画クリエイターのための爆速ツール。">
+    <meta name="keywords" content="レンズ比較,レンズ検索,中古レンズ,マップカメラ,キタムラ,SONY,LUMIX,ZEISS,動画撮影,機材比較">
+    <meta name="author" content="lens-numa">
+    
+    <meta property="og:title" content="レンズ沼 - 動画好きのための爆速レンズ比較">
+    <meta property="og:description" content="レンズの価格と作例を爆速で回遊。プロの現場で役立つ機材比較ツール。">
+    <meta property="og:url" content="https://lens-numa.github.io/lens-search/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="レンズ沼">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="動画好きのための爆速レンズ比較ツール">
+    <meta name="twitter:description" content="主要3マウントのレンズを網羅。マップカメラやメルカリを瞬時にチェック。">
+
     <style>
         body { font-family: "Helvetica Neue", Arial, sans-serif; background-color: #f5f5f5; background-image: radial-gradient(#d0d0d0 1px, transparent 1px); background-size: 20px 20px; color: #333; margin: 0; padding: 20px 10px; }
         .main-wrapper { display: flex; justify-content: center; align-items: flex-start; gap: 20px; max-width: 1350px; margin: 0 auto; }
@@ -14,7 +29,7 @@
         .ad-btn { display: block; background: #000; color: #fff !important; padding: 8px 5px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 10px; }
         .container { flex: 1; max-width: 700px; background: rgba(255, 255, 255, 0.98); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #ddd; }
         h2 { text-align: center; font-size: 1.3rem; margin-bottom: 5px; color: #cc0000; }
-        .subtitle { text-align: center; font-size: 10px; color: #999; margin-bottom: 20px; font-weight: bold; }
+        .subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 20px; font-weight: bold; }
         .active-lens-display { background: #111; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 12px; color: #00ff00; font-family: monospace; text-align: center; border: 1px solid #000; overflow-x: auto; white-space: nowrap; }
         .select-group { margin-bottom: 15px; }
         label { display: block; font-size: 11px; font-weight: bold; color: #555; margin-bottom: 5px; border-left: 3px solid #cc0000; padding-left: 8px; }
@@ -41,10 +56,12 @@
             <a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FSmallRig%2F" class="ad-btn" target="_blank">公式ショップへ</a>
         </div>
     </div>
+
     <div class="container">
         <h2>動画好きのための爆速レンズ比較</h2>
-        <div class="subtitle">ULTIMATE DATABASE v11.0 "MASTER SPEC"</div>
+        <div class="subtitle">レンズの中古価格とレビューで欲しいレンズがもっと欲しくなる！</div>
         <div id="currentLens" class="active-lens-display">TARGET: NOT SELECTED</div>
+        
         <div class="select-group">
             <label>SONY E-mount (Full-lineup)</label>
             <select class="lens-selector">
@@ -59,6 +76,7 @@
                 </optgroup>
             </select>
         </div>
+
         <div class="select-group">
             <label>LEICA L-mount (LUMIX / SIGMA / LEICA)</label>
             <select class="lens-selector">
@@ -72,8 +90,9 @@
                 </optgroup>
             </select>
         </div>
+
         <div class="select-group">
-            <label>CANON EF-mount (L-Lens & ZEISS)</label>
+            <label>CANON EF-mount (Full-lineup)</label>
             <select class="lens-selector">
                 <option value="">-- キャノンEF 選択 --</option>
                 <optgroup label="Canon L Zoom (名玉)">
@@ -87,14 +106,19 @@
                 </optgroup>
             </select>
         </div>
+
         <div class="btn-grid">
             <div class="section-title">PRICE SEARCH</div>
             <a id="linkMap" class="map" target="_blank">マップカメラ</a><a id="linkKitamura" class="kitamura" target="_blank">キタムラ</a><a id="linkMercari" class="mercari" target="_blank">メルカリ</a><a id="linkPayPay" class="paypay" target="_blank">Yahoo!フリマ</a>
             <div class="section-title">REVIEWS</div>
             <a id="linkYodobashi" class="yodobashi" target="_blank">PHOTO YODOBASHI</a><a id="linkStock" class="stock" target="_blank">STOCK SHOT</a>
         </div>
-        <div class="footer-policy"><h3>プライバシーポリシー・免責事項</h3><p>当サイトはもしもアフィリエイト参加者です。楽天市場等の情報を掲載しています。</p></div>
+        <div class="footer-policy">
+            <h3>「レンズ沼」プロジェクトについて</h3>
+            <p>当サイトは、撮影現場で最高の1本を爆速で見つけるために開発されたクリエイター支援ツールです。もしもアフィリエイトに参加しており、楽天市場等の機材情報を掲載しています。</p>
+        </div>
     </div>
+
     <div class="side-ad">
         <div class="ad-box">
             <h3>TILTA 楽天公式サイト</h3>
@@ -108,6 +132,7 @@
         </div>
     </div>
 </div>
+
 <script>
     const selectors = document.querySelectorAll('.lens-selector');
     const display = document.getElementById('currentLens');
