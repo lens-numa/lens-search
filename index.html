@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画好きのための爆速レンズ比較</title>
+    <style>
+        body { 
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif; 
+            background-color: #f5f5f5;
+            background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #333; margin: 0; padding: 20px 10px;
+        }
+
+        /* 左右にスペースを作るためのレイアウト */
+        .main-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 左右の広告エリア（PCのみ表示） */
+        .side-ad {
+            width: 180px;
+            position: sticky;
+            top: 20px;
+            display: none;
+        }
+        @media (min-width: 1100px) {
+            .side-ad { display: block; }
+        }
+
+        .ad-box {
+            background: #fff; border: 1px solid #ddd; border-radius: 10px;
+            padding: 15px; margin-bottom: 20px; text-align: center; font-size: 11px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .ad-box h3 { font-size: 13px; margin-bottom: 8px; color: #cc0000; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .ad-box p { line-height: 1.4; color: #666; }
+
+        /* メインのツール部分 */
+        .container { 
+            flex: 1;
+            max-width: 580px;
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #ddd;
+        }
+        
+        h2 { text-align: center; font-size: 1.3rem; margin-bottom: 5px; color: #cc0000; }
+        .subtitle { text-align: center; font-size: 10px; color: #999; margin-bottom: 20px; font-weight: bold; }
+        .active-lens-display {
+            background: #111; padding: 12px; border-radius: 6px; margin-bottom: 20px;
+            font-size: 12px; color: #00ff00; font-family: monospace; text-align: center; border: 1px solid #000;
+        }
+        .select-group { margin-bottom: 15px; }
+        label { display: block; font-size: 11px; font-weight: bold; color: #555; margin-bottom: 5px; border-left: 3px solid #cc0000; padding-left: 8px; }
+        select { width: 100%; padding: 12px; font-size: 14px; background: #fff; border: 2px solid #eee; border-radius: 8px; cursor: pointer; }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .section-title { grid-column: 1 / span 2; font-size: 10px; font-weight: bold; color: #bbb; margin-top: 10px; text-align: center; text-transform: uppercase; }
+        a { text-decoration: none; color: white; padding: 15px 5px; border-radius: 8px; font-weight: bold; font-size: 12px; text-align: center; transition: 0.2s; background: #333; }
+        a:hover { opacity: 0.8; transform: translateY(-1px); }
+        .map { background: #002d57; } .kitamura { background: #006b2b; }
+        .mercari { background: #ff0021; } .paypay { background: #ff00de; }
+        .yodobashi { background: #d4a017; color: #000; } .stock { background: #444; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="side-ad">
+        <div class="ad-box">
+            <h3>DJI</h3>
+            <p>ジンバル・ドローンの<br>最新モデルをチェック。</p>
+        </div>
+        <div class="ad-box">
+            <h3>SmallRig</h3>
+            <p>リグ・ケージで<br>動画撮影をもっと快適に。</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>動画好きのための爆速レンズ比較</h2>
+        <div class="subtitle">ULTIMATE DATABASE FULL SPEC v4.2</div>
+        <div class="active-lens-display" id="currentLens">TARGET: NOT SELECTED</div>
+
+        <div class="select-group">
+            <label>SONY E-mount (現行ラインナップ)</label>
+            <select class="lens-selector">
+                <option value="">-- ソニーE 選択 --</option>
+                <optgroup label="Sony G Master & G Lenses">
+                    <option value="FE 12-24mm F2.8 GM">FE 12-24mm F2.8 GM</option>
+                    <option value="FE 16-35mm F2.8 GM II">FE 16-35mm F2.8 GM II</option>
+                    <option value="FE 24-70mm F2.8 GM II">FE 24-70mm F2.8 GM II</option>
+                    <option value="FE 70-200mm F2.8 GM OSS II">FE 70-200mm F2.8 GM II</option>
+                    <option value="FE 100-400mm F4.5-5.6 GM OSS">FE 100-400mm GM</option>
+                    <option value="FE 200-600mm F5.6-6.3 G OSS">FE 200-600mm G</option>
+                    <option value="FE 14mm F1.8 GM">FE 14mm F1.8 GM</option>
+                    <option value="FE 24mm F1.4 GM">FE 24mm F1.4 GM</option>
+                    <option value="FE 35mm F1.4 GM">FE 35mm F1.4 GM</option>
+                    <option value="FE 50mm F1.2 GM">FE 50mm F1.2 GM</option>
+                    <option value="FE 50mm F1.4 GM">FE 50mm F1.4 GM</option>
+                    <option value="FE 85mm F1.4 GM II">FE 85mm F1.4 GM II</option>
+                    <option value="FE PZ 16-35mm F4 G">FE PZ 16-35mm F4 G</option>
+                    <option value="FE 20-70mm F4 G">FE 20-70mm F4 G</option>
+                    <option value="FE 24-105mm F4 G OSS">FE 24-105mm F4 G</option>
+                    <option value="FE 70-200mm F4 Macro G II">FE 70-200mm F4 Macro II</option>
+                </optgroup>
+                <optgroup label="SIGMA (E-mount)">
+                    <option value="SIGMA 14-24mm F2.8 DG DN Art">14-24mm F2.8 Art</option>
+                    <option value="SIGMA 24-70mm F2.8 DG DN Art II">24-70mm F2.8 Art II</option>
+                    <option value="SIGMA 28-45mm F1.8 DG DN Art">28-45mm F1.8 Art</option>
+                    <option value="SIGMA 28-70mm F2.8 DG DN Contemporary">28-70mm F2.8 C</option>
+                    <option value="SIGMA 35mm F1.4 DG DN Art">35mm F1.4 Art</option>
+                    <option value="SIGMA 50mm F1.2 DG DN Art">50mm F1.2 Art</option>
+                    <option value="SIGMA 85mm F1.4 DG DN Art">85mm F1.4 Art</option>
+                </optgroup>
+                <optgroup label="TAMRON (E-mount)">
+                    <option value="TAMRON 17-28mm F2.8 Di III RXD">17-28mm F2.8</option>
+                    <option value="TAMRON 28-75mm F2.8 Di III VXD G2">28-75mm F2.8 G2</option>
+                    <option value="TAMRON 35-150mm F2-2.8 Di III VXD">35-150mm F2-2.8</option>
+                    <option value="TAMRON 70-180mm F2.8 Di III VC VXD G2">70-180mm F2.8 G2</option>
+                </optgroup>
+                <optgroup label="Zeiss Batis/Loxia">
+                    <option value="Zeiss Batis 2/25 E-mount">Batis 25mm F2</option>
+                    <option value="Zeiss Batis 1.8/40 CF E-mount">Batis 40mm F1.8 CF</option>
+                    <option value="Zeiss Batis 1.8/85 E-mount">Batis 85mm F1.8</option>
+                    <option value="Zeiss Loxia 2/35 E-mount">Loxia 35mm F2</option>
+                    <option value="Zeiss Loxia 2/50 E-mount">Loxia 50mm F2</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="select-group">
+            <label>LEICA L-mount (LUMIX/SIGMA)</label>
+            <select class="lens-selector">
+                <option value="">-- Lマウント 選択 --</option>
+                <optgroup label="LUMIX S ズーム/単焦点">
+                    <option value="LUMIX S PRO 16-35mm F4">S PRO 16-35mm F4</option>
+                    <option value="LUMIX S PRO 24-70mm F2.8">S PRO 24-70mm F2.8</option>
+                    <option value="LUMIX S PRO 70-200mm F2.8">S PRO 70-200mm F2.8</option>
+                    <option value="LUMIX S 20-60mm F3.5-5.6">S 20-60mm F3.5-5.6</option>
+                    <option value="LUMIX S 28-200mm F4-7.1">S 28-200mm Macro</option>
+                    <option value="LUMIX S 50mm F1.8">S 50mm F1.8</option>
+                    <option value="LUMIX S 85mm F1.8">S 85mm F1.8</option>
+                    <option value="LUMIX S 100mm F2.8 MACRO">S 100mm Macro</option>
+                </optgroup>
+                <optgroup label="SIGMA (L-mount)">
+                    <option value="SIGMA 14-24mm F2.8 DG DN Art L-mount">14-24mm F2.8 Art</option>
+                    <option value="SIGMA 24-70mm F2.8 DG DN Art II L-mount">24-70mm F2.8 Art II</option>
+                    <option value="SIGMA 70-200mm F2.8 DG DN OS Sports L-mount">70-200mm F2.8 Sports</option>
+                    <option value="SIGMA 35mm F1.4 DG DN Art L-mount">35mm F1.4 Art</option>
+                    <option value="SIGMA 50mm F1.2 DG DN Art L-mount">50mm F1.2 Art</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="select-group">
+            <label>CANON EF-mount (Lレンズ & Zeiss)</label>
+            <select class="lens-selector">
+                <option value="">-- キャノンEF 選択 --</option>
+                <optgroup label="Canon L ズーム">
+                    <option value="EF8-15mm F4L フィッシュアイ USM">EF8-15mm F4L Fisheye</option>
+                    <option value="EF11-24mm F4L USM">EF11-24mm F4L USM</option>
+                    <option value="EF16-35mm F2.8L III USM">EF16-35mm F2.8L III</option>
+                    <option value="EF24-70mm F2.8L II USM">EF24-70mm F2.8L II</option>
+                    <option value="EF70-200mm F2.8L IS III USM">EF70-200mm F2.8L IS III</option>
+                    <option value="EF100-400mm F4.5-5.6L IS II USM">EF100-400mm F4.5-5.6L II</option>
+                </optgroup>
+                <optgroup label="Canon L 単焦点">
+                    <option value="EF35mm F1.4L II USM">EF35mm F1.4L II</option>
+                    <option value="EF50mm F1.2L USM">EF50mm F1.2L USM</option>
+                    <option value="EF85mm F1.2L II USM">EF85mm F1.2L II USM</option>
+                    <option value="EF100mm F2.8L マクロ IS USM">EF100mm F2.8L Macro</option>
+                    <option value="EF200mm F2L IS USM">EF200mm F2L IS USM</option>
+                </optgroup>
+                <optgroup label="Zeiss Makro-Planar (マクロ銘玉)">
+                    <option value="Zeiss Makro-Planar T* 2/50 ZE">Makro-Planar T* 50mm F2</option>
+                    <option value="Zeiss Makro-Planar T* 2/100 ZE">Makro-Planar T* 100mm F2</option>
+                    <option value="Zeiss Milvus 2/50 M ZE">Milvus 50mm F2 Macro</option>
+                    <option value="Zeiss Milvus 2/100 M ZE">Milvus 100mm F2 Macro</option>
+                </optgroup>
+                <optgroup label="Zeiss Otus / Milvus">
+                    <option value="Zeiss Otus 1.4/55 ZE">Otus 55mm F1.4</option>
+                    <option value="Zeiss Otus 1.4/85 ZE">Otus 85mm F1.4</option>
+                    <option value="Zeiss Planar T* 50mm F1.4 ZE">Planar T* 50mm F1.4</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="btn-grid">
+            <div class="section-title">PRICE SEARCH</div>
+            <a id="linkMap" class="map" target="_blank">マップカメラ</a>
+            <a id="linkKitamura" class="kitamura" target="_blank">キタムラ</a>
+            <a id="linkMercari" class="mercari" target="_blank">メルカリ</a>
+            <a id="linkPayPay" class="paypay" target="_blank">Yahoo!フリマ</a>
+            <div class="section-title">INSIGHTS</div>
+            <a id="linkYodobashi" class="yodobashi" target="_blank">PHOTO YODOBASHI</a>
+            <a id="linkStock" class="stock" target="_blank">STOCK SHOT</a>
+        </div>
+    </div>
+
+    <div class="side-ad">
+        <div class="ad-box">
+            <h3>Blackmagic</h3>
+            <p>シネマの画質をその手に。<br>BMPCC 6K / 4K。</p>
+        </div>
+        <div class="ad-box">
+            <h3>System5</h3>
+            <p>映像制作のプロ機材が<br>揃う国内最大級の店。</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const selectors = document.querySelectorAll('.lens-selector');
+    const display = document.getElementById('currentLens');
+    selectors.forEach(select => {
+        select.addEventListener('change
