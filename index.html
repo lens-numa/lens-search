@@ -3,108 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>レンズ沼 - 動画好きのための爆速レンズ比較・価格検索ツール</title>
-    
+    <title>レンズ沼 v2.3 - プロ仕様・爆速レンズ比較</title>
     <meta name="google-site-verification" content="7_c4gg5Y7YWErgncKcB3SFz48ciGID4yqVy8FpwyZGs" />
-
-    <meta name="description" content="SONY Eマウント、Lマウント、EFマウントのレンズ価格・中古相場・作例を一瞬で比較。マップカメラ、キタムラ、メルカリ、フォトヨドバシを同時検索する動画クリエイターのための爆速ツール。">
-    <meta name="keywords" content="レンズ比較,レンズ検索,中古レンズ,マップカメラ,キタムラ,SONY,LUMIX,ZEISS,動画撮影,機材比較">
-    <meta name="author" content="lens-numa">
-    
-    <meta property="og:title" content="レンズ沼 - 動画好きのための爆速レンズ比較">
-    <meta property="og:description" content="レンズの価格と作例を爆速で回遊。プロの現場で役立つ機材比較ツール。">
-    <meta property="og:url" content="https://lens-numa.github.io/lens-search/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="レンズ沼">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="動画好きのための爆速レンズ比較ツール">
-    <meta name="twitter:description" content="主要3マウントのレンズを網羅。マップカメラやメルカリを瞬時にチェック。">
+    <meta name="description" content="SONY E, L, MFT, EFマウントの人気レンズ上位30本以上をメーカー別・種類別に爆速比較。プロのための機材検索ポータル。">
 
     <style>
-        body { font-family: "Helvetica Neue", Arial, sans-serif; background-color: #f5f5f5; background-image: radial-gradient(#d0d0d0 1px, transparent 1px); background-size: 20px 20px; color: #333; margin: 0; padding: 20px 10px; }
+        :root { --primary: #cc0000; --bg: #f5f5f5; --card: rgba(255,255,255,0.98); --text: #333; }
+        body { font-family: "Helvetica Neue", Arial, sans-serif; background: var(--bg); background-image: radial-gradient(#d0d0d0 1px, transparent 1px); background-size: 20px 20px; color: var(--text); margin: 0; padding: 20px 10px; }
         .main-wrapper { display: flex; justify-content: center; align-items: flex-start; gap: 20px; max-width: 1350px; margin: 0 auto; }
         .side-ad { width: 180px; position: sticky; top: 20px; display: none; }
         @media (min-width: 1150px) { .side-ad { display: block; } }
         .ad-box { background: #fff; border: 2px solid #333; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center; font-size: 11px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .ad-box h3 { font-size: 13px; margin-bottom: 8px; color: #000; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .ad-btn { display: block; background: #000; color: #fff !important; padding: 8px 5px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 10px; }
-        .container { flex: 1; max-width: 700px; background: rgba(255, 255, 255, 0.98); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-        h2 { text-align: center; font-size: 1.3rem; margin-bottom: 5px; color: #cc0000; }
+        .ad-btn { display: block; background: #000; color: #fff !important; padding: 8px 5px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 10px; margin-top: 10px; }
+        
+        .container { flex: 1; max-width: 700px; background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #ddd; }
+        h2 { text-align: center; font-size: 1.5rem; margin-bottom: 5px; color: var(--primary); }
         .subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 20px; font-weight: bold; }
-        .active-lens-display { background: #111; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 12px; color: #00ff00; font-family: monospace; text-align: center; border: 1px solid #000; overflow-x: auto; white-space: nowrap; }
-        .select-group { margin-bottom: 15px; }
-        label { display: block; font-size: 11px; font-weight: bold; color: #555; margin-bottom: 5px; border-left: 3px solid #cc0000; padding-left: 8px; }
-        select { width: 100%; padding: 12px; font-size: 14px; background: #fff; border: 2px solid #eee; border-radius: 8px; cursor: pointer; }
+        
+        .mount-tabs { display: flex; gap: 5px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 15px; border: none; background: #ddd; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px; transition: 0.3s; }
+        .tab-btn.active { background: var(--primary); color: white; }
+        .lens-content { display: none; }
+        .lens-content.active { display: block; }
+
+        .active-lens-display { background: #111; padding: 12px; border-radius: 6px; margin-bottom: 20px; font-size: 12px; color: #00ff00; font-family: monospace; text-align: center; border: 1px solid #000; overflow-x: auto; }
+        label { display: block; font-size: 11px; font-weight: bold; color: #555; margin-bottom: 5px; border-left: 3px solid var(--primary); padding-left: 8px; }
+        select { width: 100%; padding: 12px; font-size: 14px; background: #fff; border: 2px solid #eee; border-radius: 8px; cursor: pointer; margin-bottom: 15px; }
+        
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         .section-title { grid-column: 1 / span 2; font-size: 10px; font-weight: bold; color: #bbb; margin-top: 10px; text-align: center; text-transform: uppercase; }
-        .btn-grid a { text-decoration: none; color: white; padding: 15px 5px; border-radius: 8px; font-weight: bold; font-size: 12px; text-align: center; transition: 0.2s; }
+        .btn-grid a { text-decoration: none; color: white; padding: 15px 5px; border-radius: 8px; font-weight: bold; font-size: 12px; text-align: center; }
         .map { background: #002d57; } .kitamura { background: #006b2b; } .mercari { background: #ff0021; } .paypay { background: #ff00de; }
         .yodobashi { background: #d4a017; color: #000 !important; } .stock { background: #444; }
-        .footer-policy { font-size: 10px; color: #999; margin-top: 40px; padding: 15px; border-top: 1px solid #eee; line-height: 1.6; }
+        .footer-policy { font-size: 10px; color: #999; margin-top: 40px; padding: 15px; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
 <div class="main-wrapper">
     <div class="side-ad">
-        <div class="ad-box">
-            <h3>DJI 認定ストア</h3>
-            <p>Osmo Pocket 3 / Ronin<br>最新ドローン・ジンバル</p>
-            <a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FDJI%2F" class="ad-btn" target="_blank">製品をチェック</a>
-        </div>
-        <div class="ad-box">
-            <h3>SmallRig 楽天</h3>
-            <p>動画装備の定番<br>ケージやハンドル類</p>
-            <a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FSmallRig%2F" class="ad-btn" target="_blank">公式ショップへ</a>
-        </div>
+        <div class="ad-box"><h3>DJI 認定ストア</h3><a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FDJI%2F" class="ad-btn" target="_blank">製品チェック</a></div>
+        <div class="ad-box"><h3>SmallRig 楽天</h3><a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FSmallRig%2F" class="ad-btn" target="_blank">公式ショップ</a></div>
     </div>
 
     <div class="container">
         <h2>動画好きのための爆速レンズ比較</h2>
         <div class="subtitle">レンズの中古価格とレビューで欲しいレンズがもっと欲しくなる！</div>
         <div id="currentLens" class="active-lens-display">TARGET: NOT SELECTED</div>
-        
-        <div class="select-group">
-            <label>SONY E-mount (Full-lineup)</label>
+
+        <div class="mount-tabs">
+            <button class="tab-btn active" onclick="showMount('sony-e')">SONY E</button>
+            <button class="tab-btn" onclick="showMount('leica-l')">L-mount</button>
+            <button class="tab-btn" onclick="showMount('mft')">MFT</button>
+            <button class="tab-btn" onclick="showMount('canon-ef')">Canon EF</button>
+        </div>
+
+        <div id="sony-e" class="lens-content active">
+            <label>SONY E-mount (Popular 30+ & ZEISS)</label>
             <select class="lens-selector">
-                <option value="">-- ソニーE 選択 --</option>
-                <optgroup label="Sony G Master">
-                    <option value="FE 12-24mm F2.8 GM">12-24mm F2.8 GM</option><option value="FE 16-35mm F2.8 GM II">16-35mm F2.8 GM II</option><option value="FE 24-70mm F2.8 GM II">24-70mm F2.8 GM II</option><option value="FE 70-200mm F2.8 GM OSS II">70-200mm GM II</option>
-                    <option value="FE 14mm F1.8 GM">14mm F1.8 GM</option><option value="FE 24mm F1.4 GM">24mm F1.4 GM</option><option value="FE 35mm F1.4 GM">35mm F1.4 GM</option><option value="FE 50mm F1.2 GM">50mm F1.2 GM</option><option value="FE 50mm F1.4 GM">50mm F1.4 GM</option><option value="FE 85mm F1.4 GM II">85mm F1.4 GM II</option><option value="FE 100mm F2.8 STF GM">100mm STF GM</option><option value="FE 135mm F1.8 GM">135mm F1.8 GM</option><option value="FE 400mm F2.8 GM">400mm F2.8 GM</option>
+                <option value="">-- レンズを選択 --</option>
+                <optgroup label="SONY - Zoom">
+                    <option value="FE 16-35mm F2.8 GM II">FE 16-35mm F2.8 GM II</option><option value="FE 24-70mm F2.8 GM II">FE 24-70mm F2.8 GM II</option><option value="FE 70-200mm F2.8 GM OSS II">FE 70-200mm GM II</option><option value="FE 20-70mm F4 G">FE 20-70mm F4 G</option><option value="FE PZ 16-35mm F4 G">FE PZ 16-35mm F4 G</option><option value="FE 24-105mm F4 G OSS">FE 24-105mm F4 G</option><option value="FE 24-50mm F2.8 G">FE 24-50mm F2.8 G</option><option value="FE 70-200mm F4 Macro G II">FE 70-200mm F4 Macro II</option>
                 </optgroup>
-                <optgroup label="Sony G / ZEISS / Others">
-                    <option value="FE PZ 16-35mm F4 G">PZ 16-35mm F4 G</option><option value="FE 20-70mm F4 G">20-70mm F4 G</option><option value="FE 24-105mm F4 G OSS">24-105mm F4 G</option><option value="FE 70-200mm F4 Macro G II">70-200mm F4 Macro II</option>
-                    <option value="Sonnar T* FE 55mm F1.8 ZA">Zeiss 55mm F1.8 ZA</option><option value="ZEISS Batis 2/25">Batis 25mm F2</option><option value="ZEISS Batis 1.8/85">Batis 85mm F1.8</option><option value="SIGMA 24-70mm F2.8 Art II">SIGMA 24-70mm Art II</option><option value="SIGMA 28-45mm F1.8 Art">SIGMA 28-45mm F1.8 Art</option><option value="TAMRON 28-75mm G2">TAMRON 28-75mm G2</option><option value="TAMRON 35-150mm F2-2.8">TAMRON 35-150mm F2-2.8</option>
+                <optgroup label="SONY - Prime">
+                    <option value="FE 14mm F1.8 GM">FE 14mm F1.8 GM</option><option value="FE 24mm F1.4 GM">FE 24mm F1.4 GM</option><option value="FE 35mm F1.4 GM">FE 35mm F1.4 GM</option><option value="FE 50mm F1.2 GM">FE 50mm F1.2 GM</option><option value="FE 50mm F1.4 GM">FE 50mm F1.4 GM</option><option value="FE 85mm F1.4 GM II">FE 85mm F1.4 GM II</option><option value="FE 90mm F2.8 Macro G OSS">FE 90mm Macro G</option>
+                </optgroup>
+                <optgroup label="SIGMA - Zoom/Prime">
+                    <option value="SIGMA 24-70mm F2.8 DG DN Art II">SIGMA 24-70mm Art II</option><option value="SIGMA 28-45mm F1.8 DG DN Art">SIGMA 28-45mm F1.8 Art</option><option value="SIGMA 16-28mm F2.8 DG DN Contemporary">SIGMA 16-28mm F2.8 C</option><option value="SIGMA 50mm F1.2 DG DN Art">SIGMA 50mm F1.2 Art</option><option value="SIGMA 35mm F1.4 DG DN Art">SIGMA 35mm F1.4 Art</option>
+                </optgroup>
+                <optgroup label="TAMRON - Zoom">
+                    <option value="TAMRON 28-75mm F2.8 Di III VXD G2">TAMRON 28-75mm G2</option><option value="TAMRON 35-150mm F2-2.8 Di III VXD">TAMRON 35-150mm F2-2.8</option><option value="TAMRON 28-200mm F2.8-5.6 Di III RXD">TAMRON 28-200mm F2.8-5.6</option><option value="TAMRON 70-180mm F2.8 G2">TAMRON 70-180mm G2</option>
+                </optgroup>
+                <optgroup label="ZEISS - Special">
+                    <option value="Sonnar T* FE 55mm F1.8 ZA">Sonnar 55mm F1.8 ZA</option><option value="ZEISS Batis 2/25">Batis 2/25</option><option value="ZEISS Batis 1.8/85">Batis 1.8/85</option><option value="ZEISS Loxia 2/35">Loxia 2/35</option>
                 </optgroup>
             </select>
         </div>
 
-        <div class="select-group">
-            <label>LEICA L-mount (LUMIX / SIGMA / LEICA)</label>
+        <div id="leica-l" class="lens-content">
+            <label>L-mount (Rank 1-30)</label>
             <select class="lens-selector">
-                <option value="">-- Lマウント 選択 --</option>
-                <optgroup label="LUMIX S (Zoom/Prime)">
-                    <option value="LUMIX S PRO 16-35mm F4">S PRO 16-35mm F4</option><option value="LUMIX S PRO 24-70mm F2.8">S PRO 24-70mm F2.8</option><option value="LUMIX S PRO 70-200mm F2.8">S PRO 70-200mm F2.8</option><option value="LUMIX S 20-60mm F3.5-5.6">S 20-60mm F3.5-5.6</option><option value="LUMIX S 24-105mm F4 MACRO">S 24-105mm Macro</option><option value="LUMIX S 28-200mm F4-7.1">S 28-200mm Macro</option>
-                    <option value="LUMIX S 18mm F1.8">S 18mm F1.8</option><option value="LUMIX S 24mm F1.8">S 24mm F1.8</option><option value="LUMIX S 35mm F1.8">S 35mm F1.8</option><option value="LUMIX S 50mm F1.8">S 50mm F1.8</option><option value="LUMIX S 85mm F1.8">S 85mm F1.8</option><option value="LUMIX S 100mm F2.8 MACRO">S 100mm Macro</option>
+                <option value="">-- レンズを選択 --</option>
+                <optgroup label="LUMIX S - Zoom">
+                    <option value="LUMIX S 28-200mm F4-7.1 MACRO O.I.S.">S 28-200mm Macro</option><option value="LUMIX S PRO 24-70mm F2.8">S PRO 24-70mm F2.8</option><option value="LUMIX S 20-60mm F3.5-5.6">S 20-60mm F3.5-5.6</option><option value="LUMIX S 18-40mm F4.5-6.3">S 18-40mm</option><option value="LUMIX S PRO 16-35mm F4">S PRO 16-35mm F4</option><option value="LUMIX S 24-105mm F4 MACRO">S 24-105mm Macro</option><option value="LUMIX S PRO 70-200mm F2.8">S PRO 70-200mm F2.8</option><option value="LUMIX S 70-300mm F4.5-5.6 MACRO">S 70-300mm Macro</option>
                 </optgroup>
-                <optgroup label="SIGMA (Art/Contemporary)">
-                    <option value="SIGMA 14-24mm F2.8 Art">14-24mm Art</option><option value="SIGMA 24-70mm F2.8 Art II">24-70mm Art II</option><option value="SIGMA 28-45mm F1.8 Art">28-45mm F1.8 Art</option><option value="SIGMA 35mm F1.4 Art">35mm F1.4 Art</option><option value="SIGMA 50mm F1.4 Art">50mm F1.4 Art</option><option value="SIGMA 85mm F1.4 Art">85mm F1.4 Art</option><option value="SIGMA 35mm F2 DG DN (I)">35mm F2 C</option><option value="SIGMA 65mm F2 DG DN (I)">65mm F2 C</option>
+                <optgroup label="LUMIX S - Prime">
+                    <option value="LUMIX S 100mm F2.8 MACRO">S 100mm Macro</option><option value="LUMIX S 18mm F1.8">S 18mm F1.8</option><option value="LUMIX S 24mm F1.8">S 24mm F1.8</option><option value="LUMIX S 35mm F1.8">S 35mm F1.8</option><option value="LUMIX S 50mm F1.8">S 50mm F1.8</option><option value="LUMIX S 85mm F1.8">S 85mm F1.8</option><option value="LUMIX S PRO 50mm F1.4">S PRO 50mm F1.4</option>
+                </optgroup>
+                <optgroup label="SIGMA - Zoom/Prime">
+                    <option value="SIGMA 24-70mm F2.8 DG DN Art II">SIGMA 24-70mm Art II</option><option value="SIGMA 28-45mm F1.8 DG DN Art">SIGMA 28-45mm F1.8 Art</option><option value="SIGMA 14-24mm F2.8 DG DN Art">SIGMA 14-24mm Art</option><option value="SIGMA 28-70mm F2.8 DG DN Contemporary">SIGMA 28-70mm C</option><option value="SIGMA 35mm F1.4 DG DN Art">SIGMA 35mm F1.4 Art</option><option value="SIGMA 50mm F1.4 DG DN Art">SIGMA 50mm F1.4 Art</option><option value="SIGMA 85mm F1.4 DG DN Art">SIGMA 85mm F1.4 Art</option><option value="SIGMA 105mm F2.8 Macro Art">SIGMA 105mm Macro Art</option>
+                </optgroup>
+                <optgroup label="LEICA - SL Series">
+                    <option value="LEICA Vario-Elmarit-SL 24-70mm f/2.8 ASPH.">LEICA 24-70mm SL</option><option value="LEICA APO-Summicron-SL 35mm f/2 ASPH.">LEICA 35mm SL</option><option value="LEICA APO-Summicron-SL 50mm f/2 ASPH.">LEICA 50mm SL</option>
                 </optgroup>
             </select>
         </div>
 
-        <div class="select-group">
-            <label>CANON EF-mount (Full-lineup)</label>
+        <div id="mft" class="lens-content">
+            <label>Micro Four Thirds (Rank 1-30)</label>
             <select class="lens-selector">
-                <option value="">-- キャノンEF 選択 --</option>
-                <optgroup label="Canon L Zoom (名玉)">
-                    <option value="EF8-15mm F4L フィッシュアイ USM">EF8-15mm Fisheye</option><option value="EF11-24mm F4L USM">EF11-24mm F4L</option><option value="EF16-35mm F2.8L III USM">EF16-35mm F2.8L III</option><option value="EF24-70mm F2.8L II USM">EF24-70mm F2.8L II</option><option value="EF70-200mm F2.8L IS III USM">EF70-200mm F2.8L III</option><option value="EF100-400mm F4.5-5.6L IS II USM">EF100-400mm L II</option>
+                <option value="">-- レンズを選択 --</option>
+                <optgroup label="LEICA / LUMIX - Zoom">
+                    <option value="LEICA DG VARIO-ELMARIT 12-60mm F2.8-4.0">LEICA 12-60mm F2.8-4.0</option><option value="LEICA DG VARIO-SUMMILUX 10-25mm F1.7 ASPH.">LEICA 10-25mm F1.7</option><option value="LEICA DG VARIO-SUMMILUX 25-50mm F1.7 ASPH.">LEICA 25-50mm F1.7</option><option value="LUMIX G X VARIO 12-35mm F2.8 II ASPH.">LUMIX 12-35mm F2.8 II</option><option value="LUMIX G X VARIO 35-100mm F2.8 II">LUMIX 35-100mm F2.8 II</option><option value="LEICA DG VARIO-ELMAR 100-400mm II">LEICA 100-400mm II</option>
                 </optgroup>
-                <optgroup label="Canon L Prime (単焦点)">
-                    <option value="EF24mm F1.4L II USM">EF24mm F1.4L II</option><option value="EF35mm F1.4L II USM">EF35mm F1.4L II</option><option value="EF50mm F1.2L USM">EF50mm F1.2L USM</option><option value="EF85mm F1.2L II USM">EF85mm F1.2L II</option><option value="EF100mm F2.8L マクロ IS USM">EF100mm Macro L</option><option value="EF135mm F2L USM">EF135mm F2L USM</option><option value="EF200mm F2L IS USM">EF200mm F2L IS</option>
+                <optgroup label="LEICA / LUMIX - Prime">
+                    <option value="LEICA DG SUMMILUX 9mm F1.7 ASPH.">LEICA 9mm F1.7</option><option value="LEICA DG SUMMILUX 15mm F1.7 ASPH.">LEICA 15mm F1.7</option><option value="LEICA DG SUMMILUX 25mm F1.4 II">LEICA 25mm F1.4 II</option><option value="LEICA DG NOCTICRON 42.5mm F1.2 ASPH.">LEICA 42.5mm F1.2</option><option value="LUMIX G 25mm F1.7 ASPH.">LUMIX 25mm F1.7</option><option value="LUMIX G 42.5mm F1.7 ASPH.">LUMIX 42.5mm F1.7</option>
                 </optgroup>
-                <optgroup label="ZEISS Otus / Milvus / Classic">
-                    <option value="ZEISS Otus 1.4/55">Otus 55mm F1.4</option><option value="ZEISS Milvus 2/50 M">Milvus 50mm F2 Macro</option><option value="ZEISS Makro-Planar T* 2/100 ZE">Makro-Planar 100mm F2</option><option value="ZEISS Planar T* 1.4/50 ZE">Planar 50mm F1.4 ZE</option>
+                <optgroup label="OM / OLYMPUS - Zoom/Prime">
+                    <option value="OM SYSTEM M.ZUIKO DIGITAL ED 12-40mm F2.8 PRO II">12-40mm F2.8 PRO II</option><option value="M.ZUIKO DIGITAL ED 12-100mm F4.0 IS PRO">12-100mm F4.0 PRO</option><option value="M.ZUIKO DIGITAL ED 40-150mm F2.8 PRO">40-150mm F2.8 PRO</option><option value="M.ZUIKO DIGITAL ED 7-14mm F2.8 PRO">7-14mm F2.8 PRO</option><option value="M.ZUIKO DIGITAL ED 60mm F2.8 Macro">60mm Macro</option><option value="M.ZUIKO DIGITAL ED 25mm F1.2 PRO">25mm F1.2 PRO</option><option value="M.ZUIKO DIGITAL ED 45mm F1.2 PRO">45mm F1.2 PRO</option><option value="M.ZUIKO DIGITAL 45mm F1.8">45mm F1.8</option>
+                </optgroup>
+                <optgroup label="SIGMA - MFT Prime">
+                    <option value="SIGMA 16mm F1.4 DC DN Contemporary">SIGMA 16mm F1.4 C</option><option value="SIGMA 30mm F1.4 DC DN Contemporary">SIGMA 30mm F1.4 C</option><option value="SIGMA 56mm F1.4 DC DN Contemporary">SIGMA 56mm F1.4 C</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div id="canon-ef" class="lens-content">
+            <label>Canon EF-mount (Rank 1-30 & ZEISS)</label>
+            <select class="lens-selector">
+                <option value="">-- レンズを選択 --</option>
+                <optgroup label="Canon L - Zoom">
+                    <option value="EF24-70mm F2.8L II USM">EF24-70mm F2.8L II</option><option value="EF16-35mm F2.8L III USM">EF16-35mm F2.8L III</option><option value="EF70-200mm F2.8L IS III USM">EF70-200mm F2.8L III</option><option value="EF24-105mm F4L IS II USM">EF24-105mm F4L II</option><option value="EF8-15mm F4L Fisheye USM">EF8-15mm Fisheye</option><option value="EF11-24mm F4L USM">EF11-24mm F4L</option><option value="EF70-200mm F4L IS II USM">EF70-200mm F4L II</option><option value="EF100-400mm F4.5-5.6L IS II">EF100-400mm L II</option>
+                </optgroup>
+                <optgroup label="Canon L - Prime">
+                    <option value="EF35mm F1.4L II USM">EF35mm F1.4L II</option><option value="EF50mm F1.2L USM">EF50mm F1.2L USM</option><option value="EF85mm F1.2L II USM">EF85mm F1.2L II</option><option value="EF100mm F2.8L Macro IS USM">EF100mm Macro L</option><option value="EF135mm F2L USM">EF135mm F2L</option><option value="EF50mm F1.8 STM">EF50mm F1.8 STM</option><option value="EF24mm F1.4L II USM">EF24mm F1.4L II</option><option value="EF85mm F1.4L IS USM">EF85mm F1.4L IS</option>
+                </optgroup>
+                <optgroup label="SIGMA Art - EF Special">
+                    <option value="SIGMA 18-35mm F1.8 DC HSM Art">SIGMA 18-35mm F1.8 Art</option><option value="SIGMA 50-100mm F1.8 DC HSM Art">SIGMA 50-100mm F1.8 Art</option><option value="SIGMA 50mm F1.4 DG HSM Art">SIGMA 50mm F1.4 Art</option><option value="SIGMA 35mm F1.4 DG HSM Art">SIGMA 35mm F1.4 Art</option>
+                </optgroup>
+                <optgroup label="ZEISS - Special">
+                    <option value="Classic Planar T* 1.4/50 ZE">Planar 50mm F1.4 ZE</option><option value="Milvus 2/50 M ZE">Milvus 50mm F2 Macro</option><option value="Otus 1.4/55 ZE">Otus 55mm F1.4</option><option value="Classic Distagon T* 2.8/21 ZE">Distagon 21mm F2.8</option><option value="Milvus 1.4/35 ZE">Milvus 35mm F1.4</option>
                 </optgroup>
             </select>
         </div>
@@ -117,25 +144,24 @@
         </div>
         <div class="footer-policy">
             <h3>「レンズ沼」プロジェクトについて</h3>
-            <p>当サイトは、撮影現場で最高の1本を爆速で見つけるために開発されたクリエイター支援ツールです。もしもアフィリエイトに参加しており、楽天市場等の機材情報を掲載しています。</p>
+            <p>当サイトはクリエイター支援ツールです。もしもアフィリエイトに参加しています。2026年最新フルスペック版。</p>
         </div>
     </div>
 
     <div class="side-ad">
-        <div class="ad-box">
-            <h3>TILTA 楽天公式サイト</h3>
-            <p>Nucleus-M から最新の<br>リグシステムまで</p>
-            <a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FTILTA%2F" class="ad-btn" target="_blank" style="background: #333;">TILTA製品を検索</a>
-        </div>
-        <div class="ad-box">
-            <h3>Blackmagic 楽天</h3>
-            <p>シネマの質感を。<br>BMPCCシリーズを検索</p>
-            <a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FBlackmagic%2BDesign%2F" class="ad-btn" target="_blank">製品をチェック</a>
-        </div>
+        <div class="ad-box"><h3>DJI 認定ストア</h3><a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FDJI%2F" class="ad-btn" target="_blank">製品チェック</a></div>
+        <div class="ad-box"><h3>SmallRig 楽天</h3><a href="https://af.moshimo.com/af/c/click?a_id=5390664&p_id=54&pc_id=54&pl_id=616&url=https%3A%2F%2Fsearch.rakuten.co.jp%2Fsearch%2Fmall%2FSmallRig%2F" class="ad-btn" target="_blank">公式ショップ</a></div>
     </div>
 </div>
 
 <script>
+    function showMount(mountId) {
+        document.querySelectorAll('.lens-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(mountId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+
     const selectors = document.querySelectorAll('.lens-selector');
     const display = document.getElementById('currentLens');
     selectors.forEach(select => {
